@@ -11,27 +11,25 @@
 
 ## Technical Context
 
-<!--
-  ACTION REQUIRED: Replace the content in this section with the technical details
-  for the project. The structure here is presented in advisory capacity to guide
-  the iteration process.
--->
-
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: Python 3.11+, Node.js 20+
+**Primary Dependencies**: React (Vite), Tailwind CSS, FastAPI/Flask
+**Storage**: N/A (or specify if needed, e.g., for user data)
+**Testing**: Pytest (backend), Vitest/React Testing Library (frontend)
+**Target Platform**: Web (Desktop & Mobile browsers)
+**Project Type**: Web Application
+**Performance Goals**: Fast-loading UI, responsive chart generation.
+**Constraints**: Adherence to the five core constitutional principles.
+**Scale/Scope**: Single-user chart generation.
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] **I. Simplicity & Focus**: Does this feature adhere to the core function of generating a single natal chart?
+- [ ] **II. Modern Frontend Stack**: Is the implementation using React, Vite, and Tailwind CSS correctly?
+- [ ] **III. Python-Powered Backend**: Is all calculation logic contained within the Python backend?
+- [ ] **IV. Clear API Boundary**: Is there a well-defined API contract between the frontend and backend?
+- [ ] **V. Testability**: Are there corresponding unit/integration tests for the new frontend and backend code?
 
 ## Project Structure
 
@@ -48,51 +46,28 @@ specs/[###-feature]/
 ```
 
 ### Source Code (repository root)
-<!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
--->
-
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
-
-tests/
-├── contract/
-├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
 backend/
 ├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
+│   ├── api/             # API endpoints (FastAPI/Flask)
+│   ├── core/            # Core astrological calculation logic
+│   └── models/          # Data models
 └── tests/
+    ├── integration/
+    └── unit/
 
 frontend/
 ├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
+│   ├── components/      # Reusable React components
+│   ├── pages/           # Main pages/views
+│   ├── services/        # API communication services
+│   └── styles/          # Tailwind CSS configuration and custom styles
 └── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+    ├── component/
+    └── unit/
 ```
 
-**Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+**Structure Decision**: The project follows a standard monorepo structure with a `frontend` directory for the React application and a `backend` directory for the Python API.
 
 ## Complexity Tracking
 
@@ -100,5 +75,4 @@ directories captured above]
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
 |-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+| [Principle ID] | [Justification for deviation] | [Reasoning] |
