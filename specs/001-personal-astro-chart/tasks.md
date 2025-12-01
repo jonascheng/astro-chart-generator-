@@ -48,15 +48,15 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T007 [US1] Write an integration test for the `/chart` endpoint expecting a successful response in `backend/tests/integration/test_api.py`.
-- [ ] T008 [US1] Implement a mock API for the `/chart` endpoint that returns a static, valid `NatalChart` response in `backend/src/api/main.py`.
-- [ ] T009 [US1] Refine the integration test to check for specific fields in the mock response in `backend/tests/integration/test_api.py`.
+- [X] T007 [US1] Write an integration test for the `/chart` endpoint expecting a successful response in `backend/tests/integration/test_api.py`.
+- [X] T008 [US1] Implement a mock API for the `/chart` endpoint that returns a static, valid `NatalChart` response in `backend/src/api/main.py`.
+- [X] T009 [US1] Refine the integration test to check for specific fields in the mock response in `backend/tests/integration/test_api.py`.
 
 ### Frontend: UI and API Integration
 
-- [ ] T010 [US1] Create the basic UI layout for the chart generation page with input fields and a button in `frontend/src/pages/ChartPage.jsx`.
-- [ ] T011 [US1] Implement a service to call the backend's `/chart` endpoint in `frontend/src/services/api.js`.
-- [ ] T012 [US1] Connect the UI to the API service and display the raw JSON data from the mock backend in `frontend/src/pages/ChartPage.jsx`.
+- [X] T010 [US1] Create the basic UI layout for the chart generation page with input fields and a button in `frontend/src/pages/ChartPage.jsx`.
+- [X] T011 [US1] Implement a service to call the backend's `/chart` endpoint in `frontend/src/services/api.js`.
+- [X] T012 [US1] Connect the UI to the API service and display the raw JSON data from the mock backend in `frontend/src/pages/ChartPage.jsx`.
 
 **Checkpoint**: At this point, the frontend form should be able to make a request to the backend and display the mock JSON response.
 
