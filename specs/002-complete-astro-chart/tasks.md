@@ -23,14 +23,14 @@ This phase prepares the development environment by installing new dependencies a
 - [ ] T006 [US1] Update the Pydantic models in `backend/src/models/chart.py` to match the structure defined in `data-model.md`.
 - [ ] T007 [US1] Implement the core calculation logic in `backend/src/core/calculations.py` using `pyswisseph` to generate the complete `ChartData` object.
 - [ ] T008 [US1] Implement the `POST /chart` endpoint in `backend/src/api/main.py` which uses the calculation logic and returns the `ChartData` object.
-- [ ] T009 [P] [US1] Create a new service function in `frontend/src/services/api.js` to send a POST request to the `/chart` endpoint.
-- [ ] T010 [P] [US1] Enhance the `frontend/src/pages/ChartPage.jsx` to fetch chart data using the new API service and pass it as a prop to the chart component.
+- [ ] T009 [US1] Create a new service function in `frontend/src/services/api.js` to send a POST request to the `/chart` endpoint.
+- [ ] T010 [US1] Enhance the `frontend/src/pages/ChartPage.jsx` to fetch chart data using the new API service and pass it as a prop to the chart component.
 - [ ] T011 [US1] Implement the D3.js rendering logic in `frontend/src/components/NatalChart.jsx` to draw the main structure of the chart (zodiac ring, house lines) based on the received `ChartData`.
-- [ ] T012 [P] [US1] Extend the D3.js logic in `frontend/src/components/NatalChart.jsx` to render the planet glyphs at their correct positions.
-- [ ] T013 [P] [US1] Extend the D3.js logic in `frontend/src/components/NatalChart.jsx` to draw the aspect lines between planets.
+- [ ] T012 [US1] Extend the D3.js logic in `frontend/src/components/NatalChart.jsx` to render the planet glyphs at their correct positions.
+- [ ] T013 [US1] Extend the D3.js logic in `frontend/src/components/NatalChart.jsx` to draw the aspect lines between planets.
 - [ ] T014 [US1] Create a new component `frontend/src/components/PositionsTable.jsx` that takes the `planets` and `points` data and renders the positions table.
 - [ ] T015 [US1] Integrate the `PositionsTable.jsx` component into `frontend/src/pages/ChartPage.jsx`.
-- [ ] T016 [P] [US1] Integrate `react-i18next` throughout the new and modified components to ensure all UI text is translated.
+- [ ] T016 [US1] Integrate `react-i18next` throughout the new and modified components to ensure all UI text is translated.
 
 ## Phase 3: User Story 2 - Print the Astrological Chart
 
@@ -54,10 +54,10 @@ This phase prepares the development environment by installing new dependencies a
 [US1] -> [US2]
 ```
 
-## Parallel Execution
+## Sequential Execution
 
-- Within User Story 1, several frontend and backend tasks can be worked on in parallel. For example, the backend API can be developed simultaneously with the frontend components. The tasks marked with `[P]` are candidates for parallel work.
-- User Story 2 can be started as soon as the main chart component from User Story 1 is rendering data, even if the styling is not final.
+- All tasks within User Story 1 will be executed in order from T006 through T016.
+- User Story 2 can be started as soon as the main chart component from User Story 1 is rendering data (after T013).
 
 ## Implementation Strategy
 
