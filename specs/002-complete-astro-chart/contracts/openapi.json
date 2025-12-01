@@ -1,0 +1,129 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Astro Chart Generator API",
+    "version": "1.0.0",
+    "description": "API for generating astrological natal charts."
+  },
+  "paths": {
+    "/chart": {
+      "post": {
+        "summary": "Generate a natal chart",
+        "description": "Accepts birth data and returns a complete natal chart data object.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "datetime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "The user's birth date and time in ISO 8601 format (UTC).",
+                    "example": "1990-01-01T12:00:00Z"
+                  },
+                  "latitude": {
+                    "type": "number",
+                    "description": "The latitude of the user's birth location.",
+                    "example": 34.0522
+                  },
+                  "longitude": {
+                    "type": "number",
+                    "description": "The longitude of the user's birth location.",
+                    "example": -118.2437
+                  }
+                },
+                "required": ["datetime", "latitude", "longitude"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful chart generation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChartData"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ChartData": {
+        "type": "object",
+        "properties": {
+          "planets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Planet"
+            }
+          },
+          "houses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/House"
+            }
+          },
+          "aspects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Aspect"
+            }
+          },
+          "points": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Point"
+            }
+          }
+        }
+      },
+      "Planet": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "longitude": { "type": "number" },
+          "sign": { "type": "string" },
+          "degree": { "type": "number" },
+          "minute": { "type": "number" },
+          "house": { "type": "number" }
+        }
+      },
+      "House": {
+        "type": "object",
+        "properties": {
+          "number": { "type": "number" },
+          "longitude": { "type": "number" },
+          "sign": { "type": "string" }
+        }
+      },
+      "Aspect": {
+        "type": "object",
+        "properties": {
+          "planet1": { "type": "string" },
+          "planet2": { "type": "string" },
+          "type": { "type": "string" },
+          "orb": { "type": "number" }
+        }
+      },
+      "Point": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "longitude": { "type": "number" },
+          "sign": { "type": "string" }
+        }
+      }
+    }
+  }
+}
