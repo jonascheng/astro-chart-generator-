@@ -22,11 +22,11 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create `backend` and `frontend` directory structures per implementation plan.
-- [ ] T002 Initialize Python project in `backend/` with FastAPI dependencies and create `.python-version` file.
-- [ ] T003 Initialize React project in `frontend/` with Vite and Tailwind CSS.
-- [ ] T004 Create `docker-compose.yml`, `backend/Dockerfile`, and `frontend/Dockerfile` per the research decisions.
-- [ ] T005 Configure linting and formatting tools for both Python (Ruff) and TypeScript/React (ESLint, Prettier).
+- [X] T001 Create `backend` and `frontend` directory structures per implementation plan.
+- [X] T002 Initialize Python project in `backend/` with FastAPI dependencies and create `.python-version` file.
+- [X] T003 Initialize React project in `frontend/` with Vite and Tailwind CSS.
+- [X] T004 Create `docker-compose.yml`, `backend/Dockerfile`, and `frontend/Dockerfile` per the research decisions.
+- [X] T005 Configure linting and formatting tools for both Python (Ruff) and TypeScript/React (ESLint, Prettier).
 
 ---
 
