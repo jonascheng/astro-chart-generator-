@@ -33,10 +33,30 @@ As a user, I want to generate a complete astrological chart based on my birth da
     **When** the user looks for aspect lines,
     **Then** lines representing major aspects (conjunction, opposition, trine, square) are drawn between planets.
 
+### User Story 2 - Print the Astrological Chart (Priority: P2)
+
+As a user, I want to be able to print my generated astrological chart.
+
+**Why this priority**: This provides a way for users to keep a physical copy of their chart.
+
+**Independent Test**: Can be tested by clicking the print button and confirming that the browser's print dialog is triggered for the chart component.
+
+**Acceptance Scenarios**:
+
+1.  **Given** a complete astrological chart is displayed,
+    **When** the user clicks the "列印星盤" (Print Chart) button,
+    **Then** the browser's print dialog appears, showing a print-friendly version of the chart.
+
 ### Edge Cases
 
 -   What happens if the user provides an invalid birth date or time? The system should display a clear error message in Traditional Chinese.
--   How does the system handle locations where the timezone is ambiguous? [NEEDS CLARIFICATION: How should the system resolve ambiguous locations? Should it ask the user for more information, or use a default?]
+-   How does the system handle locations where the timezone is ambiguous? If an entered location is ambiguous, the system will prompt the user to choose from a list of possible locations/timezones.
+
+## Clarifications
+
+### Session 2025-12-01
+
+- Q: How does the system handle locations where the timezone is ambiguous? → A: Ask the user to choose from a list of possible locations/timezones.
 
 ## Requirements *(mandatory)*
 
