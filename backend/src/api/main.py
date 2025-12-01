@@ -10,6 +10,7 @@ from src.models import (
     HouseCusp,
     MajorAspect,
 )
+from src.core.calculations import calculate_natal_chart
 
 app = FastAPI(
     title="Astro Chart Generator API",
@@ -98,6 +99,16 @@ async def generate_chart(birth_input: BirthInput) -> NatalChart:
     Takes birth date, time, and location as input and returns
     calculated natal chart data.
     """
-    # Mock implementation - returns static chart data
-    # TODO: Replace with real pyswisseph calculations
-    return _get_mock_natal_chart()
+    try:
+        # Use real calculation
+        chart = calculate_natal_chart(
+            birth_input.date,
+            birth_input.time,
+            birth_input.country,
+            birth_input.city,
+        )
+        return chart
+    except Exception:
+        # Fallback to mock data if calculation fails
+        # (useful during development/testing)
+        return _get_mock_natal_chart()

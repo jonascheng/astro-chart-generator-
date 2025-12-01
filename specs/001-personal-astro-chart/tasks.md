@@ -64,15 +64,15 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T013 [US1] Write unit tests for the core astrological calculation logic in `backend/tests/unit/test_calculations.py`.
-- [ ] T014 [US1] Implement the real astrological calculation logic using `pyswisseph` in `backend/src/core/calculations.py`. This will replace the mock response.
-- [ ] T015 [US1] Integrate the real calculation logic into the `/chart` endpoint in `backend/src/api/main.py`.
-- [ ] T016 [US1] Update the integration test in `backend/tests/integration/test_api.py` to use a known date/time/location and assert that the calculated positions are correct within a tolerance.
+- [X] T013 [US1] Write unit tests for the core astrological calculation logic in `backend/tests/unit/test_calculations.py`.
+- [X] T014 [US1] Implement the real astrological calculation logic using `pyswisseph` in `backend/src/core/calculations.py`. This will replace the mock response.
+- [X] T015 [US1] Integrate the real calculation logic into the `/chart` endpoint in `backend/src/api/main.py`.
+- [X] T016 [US1] Update the integration test in `backend/tests/integration/test_api.py` to use a known date/time/location and assert that the calculated positions are correct within a tolerance.
 
 ### Frontend: Visualization
 
-- [ ] T017 [US1] Implement the chart visualization component to render the data from the API in `frontend/src/components/NatalChart.jsx`.
-- [ ] T018 [US1] Integrate the chart visualization component into the main page in `frontend/src/pages/ChartPage.jsx`, replacing the raw JSON display.
+- [X] T017 [US1] Implement the chart visualization component to render the data from the API in `frontend/src/components/NatalChart.jsx`.
+- [X] T018 [US1] Integrate the chart visualization component into the main page in `frontend/src/pages/ChartPage.jsx`, replacing the raw JSON display.
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently.
 

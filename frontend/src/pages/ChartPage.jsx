@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import NatalChart from '../components/NatalChart';
 import './ChartPage.css';
 
 export default function ChartPage() {
@@ -131,9 +132,14 @@ export default function ChartPage() {
           )}
 
           {chartData && (
-            <div className="chart-data">
-              <h2>Chart Data</h2>
-              <pre>{JSON.stringify(chartData, null, 2)}</pre>
+            <>
+              <NatalChart chartData={chartData} />
+            </>
+          )}
+
+          {!chartData && !error && (
+            <div className="empty-state">
+              <p>Fill out the form and click "Generate Chart" to see your natal chart</p>
             </div>
           )}
         </div>
