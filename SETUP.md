@@ -80,7 +80,7 @@ curl http://localhost:8000/health  # Should return {"status":"ok"}
 ```
 
 **Access Application:**
-- Frontend: http://localhost:3000
+- Frontend: http://localhost
 - API Docs: http://localhost:8000/docs
 
 ### Stop Services
