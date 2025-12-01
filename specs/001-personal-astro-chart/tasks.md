@@ -34,7 +34,7 @@
 
 **Purpose**: Define the core data structures in the backend.
 
-- [ ] T006 Implement Pydantic models for `BirthInput` and `NatalChart` in `backend/src/models/chart.py` based on `data-model.md`.
+- [X] T006 Implement Pydantic models for `BirthInput` and `NatalChart` in `backend/src/models/chart.py` based on `data-model.md`.
 
 ---
 

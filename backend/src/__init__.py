@@ -1,0 +1,1 @@
+"""Astro Chart Generator Backend."""
