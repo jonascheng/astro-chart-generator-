@@ -15,6 +15,7 @@
     "e2e:chromium": "playwright test --project=chromium"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.1.17",
     "autoprefixer": "^10.4.22",
     "postcss": "^8.5.6",
     "prettier": "^3.7.3",
