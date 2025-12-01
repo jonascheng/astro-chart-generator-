@@ -68,5 +68,5 @@ As a user interested in astrology, I want to enter my birth date, time, and loca
 
 -   **SC-001**: 95% of users can successfully generate a chart on their first attempt without encountering a validation error (assuming valid data).
 -   **SC-002**: The end-to-end chart generation, from clicking the "Generate Chart" button to the chart being displayed, must take less than 5 seconds.
--   **SC-003**: The calculated planetary positions must be accurate to within 1 degree of arc when compared to a reputable ephemeris source (e.g., Swiss Ephemeris) for 100 test cases spanning different dates and locations.
+-   **SC-003**: The calculated planetary positions must be accurate to within 1 degree of arc when compared to the official Swiss Ephemeris (e.g., Swiss Ephemeris) for 100 test cases spanning different dates and locations.
 -   **SC-04**: The application's user interface must achieve a Lighthouse accessibility score of 90 or higher.
