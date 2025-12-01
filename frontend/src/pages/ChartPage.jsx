@@ -13,6 +13,42 @@ export default function ChartPage() {
   const [chartData, setChartData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [validationErrors, setValidationErrors] = useState({});
+
+  // Validate form fields
+  const validateForm = () => {
+    const errors = {};
+
+    if (!formData.date) {
+      errors.date = 'Birth date is required';
+    } else {
+      // Verify date is not in the future
+      const selectedDate = new Date(formData.date);
+      const today = new Date();
+      if (selectedDate > today) {
+        errors.date = 'Birth date cannot be in the future';
+      }
+      // Verify date is not before 1900
+      if (selectedDate.getFullYear() < 1900) {
+        errors.date = 'Birth date must be after 1900';
+      }
+    }
+
+    if (!formData.time) {
+      errors.time = 'Birth time is required';
+    }
+
+    if (!formData.country || formData.country.trim() === '') {
+      errors.country = 'Country is required';
+    }
+
+    if (!formData.city || formData.city.trim() === '') {
+      errors.city = 'City is required';
+    }
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -20,12 +56,25 @@ export default function ChartPage() {
       ...prev,
       [name]: value,
     }));
+    // Clear validation error for this field when user starts typing
+    if (validationErrors[name]) {
+      setValidationErrors((prev) => ({
+        ...prev,
+        [name]: '',
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
     setError(null);
+
+    // Validate form before submission
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsLoading(true);
 
     try {
       const response = await fetch('/api/chart', {
@@ -37,10 +86,29 @@ export default function ChartPage() {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          errorData.detail || `HTTP error! status: ${response.status}`
-        );
+        let errorMessage = 'An error occurred while generating your chart';
+        try {
+          const errorData = await response.json();
+          // Handle both FastAPI validation errors and custom errors
+          if (errorData.detail) {
+            if (Array.isArray(errorData.detail)) {
+              // Pydantic validation errors
+              errorMessage = errorData.detail
+                .map(
+                  (err) =>
+                    `${err.loc[err.loc.length - 1]}: ${err.msg}`
+                )
+                .join(', ');
+            } else {
+              // Custom error messages from endpoint
+              errorMessage = errorData.detail;
+            }
+          }
+        } catch {
+          // Fallback if response is not JSON
+          errorMessage = `HTTP error! Status: ${response.status}`;
+        }
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
@@ -60,35 +128,45 @@ export default function ChartPage() {
       </div>
 
       <div className="chart-page-content">
-        <form onSubmit={handleSubmit} className="chart-form">
+        <form onSubmit={handleSubmit} className="chart-form" noValidate>
           <div className="form-group">
-            <label htmlFor="date">Birth Date</label>
+            <label htmlFor="date">Birth Date *</label>
             <input
               type="date"
               id="date"
               name="date"
               value={formData.date}
               onChange={handleInputChange}
-              required
-              className="form-input"
+              className={`form-input ${validationErrors.date ? 'form-input-error' : ''}`}
+              aria-describedby={validationErrors.date ? 'date-error' : undefined}
             />
+            {validationErrors.date && (
+              <span className="validation-error" id="date-error">
+                {validationErrors.date}
+              </span>
+            )}
           </div>
 
           <div className="form-group">
-            <label htmlFor="time">Birth Time</label>
+            <label htmlFor="time">Birth Time *</label>
             <input
               type="time"
               id="time"
               name="time"
               value={formData.time}
               onChange={handleInputChange}
-              required
-              className="form-input"
+              className={`form-input ${validationErrors.time ? 'form-input-error' : ''}`}
+              aria-describedby={validationErrors.time ? 'time-error' : undefined}
             />
+            {validationErrors.time && (
+              <span className="validation-error" id="time-error">
+                {validationErrors.time}
+              </span>
+            )}
           </div>
 
           <div className="form-group">
-            <label htmlFor="country">Country</label>
+            <label htmlFor="country">Country *</label>
             <input
               type="text"
               id="country"
@@ -96,13 +174,18 @@ export default function ChartPage() {
               value={formData.country}
               onChange={handleInputChange}
               placeholder="e.g., USA"
-              required
-              className="form-input"
+              className={`form-input ${validationErrors.country ? 'form-input-error' : ''}`}
+              aria-describedby={validationErrors.country ? 'country-error' : undefined}
             />
+            {validationErrors.country && (
+              <span className="validation-error" id="country-error">
+                {validationErrors.country}
+              </span>
+            )}
           </div>
 
           <div className="form-group">
-            <label htmlFor="city">City</label>
+            <label htmlFor="city">City *</label>
             <input
               type="text"
               id="city"
@@ -110,9 +193,14 @@ export default function ChartPage() {
               value={formData.city}
               onChange={handleInputChange}
               placeholder="e.g., New York"
-              required
-              className="form-input"
+              className={`form-input ${validationErrors.city ? 'form-input-error' : ''}`}
+              aria-describedby={validationErrors.city ? 'city-error' : undefined}
             />
+            {validationErrors.city && (
+              <span className="validation-error" id="city-error">
+                {validationErrors.city}
+              </span>
+            )}
           </div>
 
           <button

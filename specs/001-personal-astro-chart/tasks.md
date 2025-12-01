@@ -82,10 +82,10 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T019 Add client-side validation for the input form in `frontend/src/pages/ChartPage.jsx`.
-- [ ] T020 Add error handling to the frontend to display messages from the API (e.g., for invalid locations) in `frontend/src/pages/ChartPage.jsx`.
-- [ ] T021 Implement structured logging in the backend in `backend/src/api/main.py`.
-- [ ] T022 Review and improve the accessibility of the frontend, aiming for a Lighthouse score of 90+.
+- [X] T019 Add client-side validation for the input form in `frontend/src/pages/ChartPage.jsx`.
+- [X] T020 Add error handling to the frontend to display messages from the API (e.g., for invalid locations) in `frontend/src/pages/ChartPage.jsx`.
+- [X] T021 Implement structured logging in the backend in `backend/src/api/main.py`.
+- [X] T022 Review and improve the accessibility of the frontend, aiming for a Lighthouse score of 90+.
 
 ---
 

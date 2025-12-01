@@ -1,6 +1,7 @@
 """Main FastAPI application for the astro chart generator."""
 
-from fastapi import FastAPI
+import logging
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.models import (
@@ -11,6 +12,13 @@ from src.models import (
     MajorAspect,
 )
 from src.core.calculations import calculate_natal_chart
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+)
+logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title="Astro Chart Generator API",
@@ -31,6 +39,7 @@ app.add_middleware(
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
+    logger.info("Health check requested")
     return {"status": "ok"}
 
 
@@ -99,6 +108,11 @@ async def generate_chart(birth_input: BirthInput) -> NatalChart:
     Takes birth date, time, and location as input and returns
     calculated natal chart data.
     """
+    logger.info(
+        f"Chart generation requested for: {birth_input.city}, "
+        f"{birth_input.country} on {birth_input.date} at {birth_input.time}"
+    )
+
     try:
         # Use real calculation
         chart = calculate_natal_chart(
@@ -107,8 +121,34 @@ async def generate_chart(birth_input: BirthInput) -> NatalChart:
             birth_input.country,
             birth_input.city,
         )
+        logger.info(
+            "Chart generated successfully for "
+            f"{birth_input.city}, {birth_input.country}"
+        )
         return chart
-    except Exception:
-        # Fallback to mock data if calculation fails
-        # (useful during development/testing)
+    except ValueError as e:
+        # Handle validation errors from calculations
+        error_msg = str(e)
+        logger.warning(f"Validation error in chart calculation: {error_msg}")
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid input: {error_msg}",
+        )
+    except KeyError:
+        # Handle unknown city/country
+        error_msg = (
+            f"Location not found: {birth_input.city}, "
+            f"{birth_input.country}. Please use a major city."
+        )
+        logger.warning(f"Unknown location requested: {error_msg}")
+        raise HTTPException(
+            status_code=400,
+            detail=error_msg,
+        )
+    except Exception as e:
+        # Log unexpected errors but still try to return mock data
+        error_msg = str(e)
+        logger.error(f"Unexpected error in chart calculation: {error_msg}")
+        logger.info("Falling back to mock data")
+        # Return mock data as fallback during development
         return _get_mock_natal_chart()
