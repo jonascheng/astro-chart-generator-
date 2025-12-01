@@ -23,9 +23,10 @@ The technical approach will involve using the `pyswisseph` library in the Python
 **Target Platform**: Web (Desktop & Mobile browsers)
 **Project Type**: Web Application
 **Performance Goals**: Fast-loading UI, responsive chart generation under 2 seconds.
-**Constraints**: 
+**Constraints**:
 - Adherence to the five core constitutional principles.
-- The visual output of the chart must be as close as possible to `example-astro.png`. [NEEDS CLARIFICATION: The exact font used in the reference image is unknown and needs to be identified or a visually similar open-source alternative must be selected.]
+- The visual output of the chart must be as close as possible to `example-astro.png`.
+- **Font Selection**: Traditional Chinese text uses `Source Han Serif (思源宋體)` for a traditional serif feel; Latin characters and numerals use `Source Han Sans` for readability and modern aesthetics. Both are open-source and provide full Traditional Chinese coverage.
 **Scale/Scope**: Single-user chart generation.
 
 ## Constitution Check

@@ -64,6 +64,8 @@ Represents a key astrological point (AC, MC, etc.).
 | `name` | `String` | The name of the point (e.g., "Ascendant", "MC"). | `"Ascendant"` |
 | `longitude` | `Number` | The celestial longitude in degrees. | `153.25` |
 | `sign` | `String` | The zodiac sign the point is in. | `"Virgo"` |
+| `degree` | `Number` | The degree within the sign. | `3` |
+| `minute` | `Number` | The minute within the degree. | `15` |
 
 ## Example JSON Payload
 
@@ -111,12 +113,16 @@ Represents a key astrological point (AC, MC, etc.).
     {
       "name": "Ascendant",
       "longitude": 153.25,
-      "sign": "Virgo"
+      "sign": "Virgo",
+      "degree": 3,
+      "minute": 15
     },
     {
       "name": "MC",
       "longitude": 68.0,
-      "sign": "Gemini"
+      "sign": "Gemini",
+      "degree": 8,
+      "minute": 0
     }
   ]
 }
