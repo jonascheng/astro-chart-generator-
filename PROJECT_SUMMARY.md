@@ -150,7 +150,7 @@ cd frontend && npm install
 npm run dev
 ```
 
-Visit: http://localhost:5173
+Visit: http://localhost:80
 
 ### 2. Docker Deployment (3 minutes)
 

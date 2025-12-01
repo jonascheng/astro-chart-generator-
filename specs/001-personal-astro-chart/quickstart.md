@@ -48,7 +48,7 @@ The easiest way to run the entire application stack is using `docker-compose`.
     -   Start both containers.
 
 2.  **Accessing the Application**:
-    -   **Frontend**: Open your browser and navigate to `http://localhost:5173` (or the port specified in `docker-compose.yml`).
+    -   **Frontend**: Open your browser and navigate to `http://localhost:80` (or the port specified in `docker-compose.yml`).
     -   **Backend API**: The API will be available at `http://localhost:8000`. The interactive API documentation can be accessed at `http://localhost:8000/docs`.
 
 ## 3. Local Development without Docker
@@ -61,7 +61,7 @@ For more direct development (e.g., with frontend hot-reloading):
 cd frontend
 npm run dev
 ```
-The frontend will be available at `http://localhost:5173`.
+The frontend will be available at `http://localhost:80`.
 
 ### Running the Backend
 

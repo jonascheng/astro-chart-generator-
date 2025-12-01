@@ -58,7 +58,7 @@ npm run dev
 ```
 
 **Visit in browser:**
-- Frontend: http://localhost:5173
+- Frontend: http://localhost:80
 - API Docs: http://localhost:8000/docs
 - Health Check: http://localhost:8000/health
 
@@ -169,7 +169,7 @@ Falls back to Greenwich Observatory (51.4769°N, 0°E) for unknown locations.
 
 ### Frontend Environment
 
-Frontend runs on `http://localhost:5173` (Vite dev server) and connects to backend at `http://localhost:8000/api`.
+Frontend runs on `http://localhost:80` (Vite dev server) and connects to backend at `http://localhost:8000/api`.
 
 ---
 
@@ -297,7 +297,7 @@ pip install httpx
 
 ### Frontend Issues
 
-**Port 5173 already in use:**
+**Port 80 already in use:**
 ```bash
 # Vite will automatically try next available port (5174, 5175, etc.)
 npm run dev
