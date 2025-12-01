@@ -1,0 +1,136 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Astro Chart Generator API",
+    "version": "1.0.0",
+    "description": "API for generating personal astrological natal charts."
+  },
+  "paths": {
+    "/chart": {
+      "post": {
+        "summary": "Generate a Natal Chart",
+        "operationId": "generateNatalChart",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BirthInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully generated natal chart",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NatalChart"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BirthInput": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "time": {
+            "type": "string",
+            "format": "time"
+          },
+          "country": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          }
+        },
+        "required": ["date", "time", "country", "city"]
+      },
+      "NatalChart": {
+        "type": "object",
+        "properties": {
+          "planets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlanetPosition"
+            }
+          },
+          "houses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/HouseCusp"
+            }
+          },
+          "aspects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MajorAspect"
+            }
+          }
+        }
+      },
+      "PlanetPosition": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "sign": {
+            "type": "string"
+          },
+          "degrees": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "HouseCusp": {
+        "type": "object",
+        "properties": {
+          "house_number": {
+            "type": "integer"
+          },
+          "sign": {
+            "type": "string"
+          },
+          "degrees": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "MajorAspect": {
+        "type": "object",
+        "properties": {
+          "aspect_type": {
+            "type": "string"
+          },
+          "planet1": {
+            "type": "string"
+          },
+          "planet2": {
+            "type": "string"
+          },
+          "orb": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      }
+    }
+  }
+}
