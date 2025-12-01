@@ -126,9 +126,8 @@ def get_planet_positions(
 
     for planet_name, planet_id in PLANETS.items():
         # Calculate planet position
-        lon, lat, distance, speed_lon, speed_lat, speed_dist = (
-            swe.calc_ut(jd, planet_id)
-        )
+        coords, ret_flag = swe.calc_ut(jd, planet_id)
+        lon, lat, distance, speed_lon, speed_lat, speed_dist = coords
 
         # Normalize longitude to 0-360 range
         lon = lon % 360
@@ -163,11 +162,8 @@ def get_house_cusps(
     """
     jd = _calculate_jd(date_str, time_str)
 
-    # Set geographic location for house calculation
-    swe.set_topo(longitude, latitude, 0)
-
     # Calculate houses (Placidus houses)
-    houses, ascmc = swe.houses_ut(jd, latitude, longitude, b"P")
+    houses, ascmc = swe.houses_ex(jd, latitude, longitude, b"P")
 
     cusps = []
 
