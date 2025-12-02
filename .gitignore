@@ -5,6 +5,7 @@ Thumbs.db
 *.swp
 .vscode/
 .idea/
+.playwright-mcp/
 
 # Node.js/JavaScript/TypeScript
 node_modules/
