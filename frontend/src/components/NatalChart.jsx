@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import './NatalChart.css';
 
 /**
@@ -6,6 +7,8 @@ import './NatalChart.css';
  * Displays planetary positions, houses, and aspects in a circular chart format.
  */
 export default function NatalChart({ chartData }) {
+  const { t } = useTranslation();
+  
   if (!chartData) {
     return null;
   }

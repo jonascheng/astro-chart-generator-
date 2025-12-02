@@ -1,8 +1,11 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import NatalChart from '../components/NatalChart';
+import PositionsTable from '../components/PositionsTable';
 import './ChartPage.css';
 
 export default function ChartPage() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     date: '',
     time: '',
@@ -20,30 +23,30 @@ export default function ChartPage() {
     const errors = {};
 
     if (!formData.date) {
-      errors.date = 'Birth date is required';
+      errors.date = t('error_missing_field');
     } else {
       // Verify date is not in the future
       const selectedDate = new Date(formData.date);
       const today = new Date();
       if (selectedDate > today) {
-        errors.date = 'Birth date cannot be in the future';
+        errors.date = t('error_invalid_date');
       }
       // Verify date is not before 1900
       if (selectedDate.getFullYear() < 1900) {
-        errors.date = 'Birth date must be after 1900';
+        errors.date = t('error_invalid_date');
       }
     }
 
     if (!formData.time) {
-      errors.time = 'Birth time is required';
+      errors.time = t('error_missing_field');
     }
 
     if (!formData.country || formData.country.trim() === '') {
-      errors.country = 'Country is required';
+      errors.country = t('error_missing_field');
     }
 
     if (!formData.city || formData.city.trim() === '') {
-      errors.city = 'City is required';
+      errors.city = t('error_missing_field');
     }
 
     setValidationErrors(errors);
@@ -92,7 +95,7 @@ export default function ChartPage() {
       });
 
       if (!response.ok) {
-        let errorMessage = 'An error occurred while generating your chart';
+        let errorMessage = t('error_api_failed');
         try {
           const errorData = await response.json();
           // Handle both FastAPI validation errors and custom errors
@@ -120,7 +123,7 @@ export default function ChartPage() {
       const data = await response.json();
       setChartData(data);
     } catch (err) {
-      setError(err.message || 'An error occurred while fetching the chart');
+      setError(err.message || t('error_api_failed'));
     } finally {
       setIsLoading(false);
     }
@@ -129,14 +132,14 @@ export default function ChartPage() {
   return (
     <div className="chart-page-container">
       <div className="chart-page-header">
-        <h1>Natal Chart Generator</h1>
-        <p>Enter your birth information to generate your natal chart</p>
+        <h1>{t('app_title')}</h1>
+        <p>{t('form_description')}</p>
       </div>
 
       <div className="chart-page-content">
         <form onSubmit={handleSubmit} className="chart-form" noValidate>
           <div className="form-group">
-            <label htmlFor="date">Birth Date *</label>
+            <label htmlFor="date">{t('label_birth_date')} *</label>
             <input
               type="date"
               id="date"
@@ -154,7 +157,7 @@ export default function ChartPage() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="time">Birth Time *</label>
+            <label htmlFor="time">{t('label_birth_time')} *</label>
             <input
               type="time"
               id="time"
@@ -172,14 +175,14 @@ export default function ChartPage() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="country">Country *</label>
+            <label htmlFor="country">{t('label_birth_location')} *</label>
             <input
               type="text"
               id="country"
               name="country"
               value={formData.country}
               onChange={handleInputChange}
-              placeholder="e.g., USA"
+              placeholder={t('placeholder_birth_location')}
               className={`form-input ${validationErrors.country ? 'form-input-error' : ''}`}
               aria-describedby={validationErrors.country ? 'country-error' : undefined}
             />
@@ -191,14 +194,14 @@ export default function ChartPage() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="city">City *</label>
+            <label htmlFor="city">{t('label_birth_location')} *</label>
             <input
               type="text"
               id="city"
               name="city"
               value={formData.city}
               onChange={handleInputChange}
-              placeholder="e.g., New York"
+              placeholder={t('placeholder_birth_location')}
               className={`form-input ${validationErrors.city ? 'form-input-error' : ''}`}
               aria-describedby={validationErrors.city ? 'city-error' : undefined}
             />
@@ -214,26 +217,37 @@ export default function ChartPage() {
             disabled={isLoading}
             className="submit-button"
           >
-            {isLoading ? 'Generating Chart...' : 'Generate Chart'}
+            {isLoading ? t('loading') : t('button_generate_chart')}
           </button>
         </form>
 
         <div className="chart-results">
           {error && (
             <div className="error-message">
-              <p>Error: {error}</p>
+              <p>{t('error_api_failed')}: {error}</p>
             </div>
           )}
 
           {chartData && (
             <>
+              <div className="chart-actions">
+                <button
+                  type="button"
+                  className="print-button"
+                  onClick={() => window.print()}
+                  aria-label={t('button_print_chart')}
+                >
+                  {t('button_print_chart')}
+                </button>
+              </div>
               <NatalChart chartData={chartData} />
+              <PositionsTable planets={chartData.planets} points={chartData.points} />
             </>
           )}
 
           {!chartData && !error && (
             <div className="empty-state">
-              <p>Fill out the form and click "Generate Chart" to see your natal chart</p>
+              <p>{t('form_description')}</p>
             </div>
           )}
         </div>

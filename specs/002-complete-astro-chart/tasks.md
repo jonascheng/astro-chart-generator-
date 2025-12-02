@@ -9,25 +9,25 @@ This document breaks down the implementation of the "Complete Astrological Chart
 
 This phase prepares the development environment by installing new dependencies and setting up the necessary configuration files.
 
-- [ ] T001 Install `pyswisseph` dependency in the `backend` directory.
-- [ ] T002 Install `d3`, `react-i18next`, and `i18next` dependencies in the `frontend` directory.
-- [ ] T003 Download Swiss Ephemeris data files and place them in `backend/src/core/ephe/`.
-- [ ] T004 Create and configure the `i18next` initialization file at `frontend/src/i18n.js`.
-- [ ] T005 Create the Traditional Chinese translation file at `frontend/public/locales/zh_Hant/translation.json`.
+- [x] T001 Install `pyswisseph` dependency in the `backend` directory.
+- [x] T002 Install `d3`, `react-i18next`, and `i18next` dependencies in the `frontend` directory.
+- [x] T003 Download Swiss Ephemeris data files and place them in `backend/src/core/ephe/`.
+- [x] T004 Create and configure the `i18next` initialization file at `frontend/src/i18n.js`.
+- [x] T005 Create the Traditional Chinese translation file at `frontend/public/locales/zh_Hant/translation.json`.
 
 ## Phase 2: User Story 1 - Generate and View a Complete Astrological Chart
 
 **Goal**: A user can enter their birth data and see a complete astrological chart rendered in the browser, with all UI text in Traditional Chinese.
 **Independent Test**: Enter birth data, generate the chart, and verify that the chart, positions table, and all labels are rendered correctly as per the spec.
 
-- [ ] T006 [US1] Update the Pydantic models in `backend/src/models/chart.py` to match the structure defined in `data-model.md`.
-- [ ] T007 [US1] Implement the core calculation logic in `backend/src/core/calculations.py` using `pyswisseph` to generate the complete `ChartData` object.
-- [ ] T008 [US1] Implement the `POST /chart` endpoint in `backend/src/api/main.py` which uses the calculation logic and returns the `ChartData` object.
-- [ ] T009 [US1] Create a new service function in `frontend/src/services/api.js` to send a POST request to the `/chart` endpoint.
-- [ ] T010 [US1] Enhance the `frontend/src/pages/ChartPage.jsx` to fetch chart data using the new API service and pass it as a prop to the chart component.
-- [ ] T011 [US1] Implement the D3.js rendering logic in `frontend/src/components/NatalChart.jsx` to draw the main structure of the chart (zodiac ring, house lines) based on the received `ChartData`.
-- [ ] T012 [US1] Extend the D3.js logic in `frontend/src/components/NatalChart.jsx` to render the planet glyphs at their correct positions.
-- [ ] T013 [US1] Extend the D3.js logic in `frontend/src/components/NatalChart.jsx` to draw the aspect lines between planets.
+- [x] T006 [US1] Update the Pydantic models in `backend/src/models/chart.py` to match the structure defined in `data-model.md`.
+- [x] T007 [US1] Implement the core calculation logic in `backend/src/core/calculations.py` using `pyswisseph` to generate the complete `ChartData` object.
+- [x] T008 [US1] Implement the `POST /chart` endpoint in `backend/src/api/main.py` which uses the calculation logic and returns the `ChartData` object.
+- [x] T009 [US1] Create a new service function in `frontend/src/services/api.js` to send a POST request to the `/chart` endpoint.
+- [x] T010 [US1] Enhance the `frontend/src/pages/ChartPage.jsx` to fetch chart data using the new API service and pass it as a prop to the chart component.
+- [x] T011 [US1] Implement the D3.js rendering logic in `frontend/src/components/NatalChart.jsx` to draw the main structure of the chart (zodiac ring, house lines) based on the received `ChartData`.
+- [x] T012 [US1] Extend the D3.js logic in `frontend/src/components/NatalChart.jsx` to render the planet glyphs at their correct positions.
+- [x] T013 [US1] Extend the D3.js logic in `frontend/src/components/NatalChart.jsx` to draw the aspect lines between planets.
 - [ ] T014 [US1] Create a new component `frontend/src/components/PositionsTable.jsx` that takes the `planets` and `points` data and renders the positions table.
 - [ ] T015 [US1] Integrate the `PositionsTable.jsx` component into `frontend/src/pages/ChartPage.jsx`.
 - [ ] T016 [US1] Integrate `react-i18next` throughout the new and modified components to ensure all UI text is translated.

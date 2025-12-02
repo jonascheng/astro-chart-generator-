@@ -1,0 +1,238 @@
+/* Positions Table Container */
+.positions-table-container {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.positions-table-container h3 {
+  color: #ffd700;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Table Wrapper for Scrolling */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Table Styling */
+.positions-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  color: #e0e0e0;
+}
+
+.positions-table thead {
+  background-color: rgba(255, 215, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.positions-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #ffd700;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+}
+
+.positions-table tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.positions-table tbody tr:hover {
+  background-color: rgba(255, 215, 0, 0.08);
+  box-shadow: inset 0 0 8px rgba(255, 215, 0, 0.1);
+}
+
+.positions-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.positions-table td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+/* Body Name Column */
+.body-name {
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.body-planet .body-name {
+  color: #ffd700;
+}
+
+.body-point .body-name {
+  color: #87ceeb;
+}
+
+/* Sign Column */
+.body-sign {
+  color: #b0e0e6;
+  font-style: italic;
+  letter-spacing: 0.2px;
+}
+
+/* Position Column */
+.body-position {
+  font-family: 'Monaco', 'Courier New', monospace;
+  color: #90ee90;
+  font-weight: 500;
+}
+
+/* Longitude Column */
+.body-longitude {
+  font-family: 'Monaco', 'Courier New', monospace;
+  color: #dda0dd;
+  font-size: 0.9rem;
+}
+
+/* House Column */
+.body-house {
+  color: #ffb6c1;
+  font-size: 0.9rem;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+  .positions-table-container {
+    padding: 16px;
+    margin-top: 16px;
+  }
+
+  .positions-table-container h3 {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+  }
+
+  .positions-table {
+    font-size: 0.85rem;
+  }
+
+  .positions-table th,
+  .positions-table td {
+    padding: 8px 12px;
+  }
+
+  /* Hide House column on small screens if needed */
+  @media (max-width: 600px) {
+
+    .positions-table th:last-child,
+    .positions-table td:last-child {
+      display: none;
+    }
+  }
+}
+
+/* Table Legend */
+.table-legend {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: #c0c0c0;
+  font-size: 0.9rem;
+}
+
+.legend-marker {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.planet-marker {
+  color: #ffd700;
+}
+
+.point-marker {
+  color: #87ceeb;
+}
+
+/* Print Styles */
+@media print {
+  .positions-table-container {
+    background: white;
+    color: #000;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+
+  .positions-table-container h3 {
+    color: #000;
+    text-shadow: none;
+  }
+
+  .positions-table thead {
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #999;
+  }
+
+  .positions-table th {
+    color: #000;
+    border-bottom: 2px solid #999;
+  }
+
+  .positions-table tbody tr {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .positions-table tbody tr:hover {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .positions-table td {
+    color: #000;
+  }
+
+  .body-name {
+    color: #000;
+    font-weight: 600;
+  }
+
+  .body-sign {
+    color: #333;
+  }
+
+  .body-position,
+  .body-longitude,
+  .body-house {
+    color: #000;
+  }
+
+  .table-legend {
+    border-top: 1px solid #999;
+    color: #000;
+  }
+
+  .legend-item {
+    color: #000;
+  }
+}
