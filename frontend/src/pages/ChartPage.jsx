@@ -68,6 +68,11 @@ export default function ChartPage() {
     }
   };
 
+  const handleRetry = () => {
+    setError(null);
+    setChartData(null);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -223,8 +228,14 @@ export default function ChartPage() {
 
         <div className="chart-results">
           {error && (
-            <div className="error-message">
-              <p>{t('error_api_failed')}: {error}</p>
+            <div className="error-container">
+              <div className="error-message">
+                <h3>{t('error_api_failed')}</h3>
+                <p>{error}</p>
+                <button onClick={handleRetry} className="retry-button">
+                  {t('retry')}
+                </button>
+              </div>
             </div>
           )}
 
