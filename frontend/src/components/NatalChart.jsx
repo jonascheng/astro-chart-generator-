@@ -10,7 +10,7 @@ export default function NatalChart({ chartData }) {
     return null;
   }
 
-  const { planets, houses, aspects } = chartData;
+  const { planets, houses, aspects, points } = chartData;
 
   const CHART_SIZE = 400;
   const CENTER = CHART_SIZE / 2;
@@ -74,14 +74,16 @@ export default function NatalChart({ chartData }) {
 
   // Calculate planet positions
   const planetPositions = planets.map((planet) => {
-    const degrees = planet.degrees + (ZODIAC_SIGNS.indexOf(planet.sign) * 30 || 0);
+    // Use longitude directly if available, otherwise calculate from sign and degree
+    const degrees = planet.longitude || (planet.degree + (ZODIAC_SIGNS.indexOf(planet.sign) * 30 || 0));
     const coords = getCoordinates(degrees % 360, OUTER_RADIUS - 30);
     return { ...planet, ...coords, degrees: degrees % 360 };
   });
 
   // Calculate house cusps
   const houseCusps = houses.map((house) => {
-    const degrees = house.degrees + (ZODIAC_SIGNS.indexOf(house.sign) * 30 || 0);
+    // Use longitude directly if available, otherwise calculate from sign and degrees
+    const degrees = house.longitude || (house.degree + (ZODIAC_SIGNS.indexOf(house.sign) * 30 || 0));
     return { ...house, degrees: degrees % 360 };
   });
 
@@ -89,7 +91,7 @@ export default function NatalChart({ chartData }) {
     .map((p) => `${p.name} in ${p.sign}`)
     .join(', ');
   const aspectsList = aspects
-    .map((a) => `${a.planet1} ${a.aspect_type} ${a.planet2}`)
+    .map((a) => `${a.planet1} ${a.type} ${a.planet2}`)
     .join(', ');
 
   return (
@@ -132,13 +134,13 @@ export default function NatalChart({ chartData }) {
           const coords = getCoordinates(house.degrees, OUTER_RADIUS);
           return (
             <line
-              key={`house-line-${house.house_number}`}
+              key={`house-line-${house.number}`}
               x1={CENTER}
               y1={CENTER}
               x2={coords.x}
               y2={coords.y}
               className="house-line"
-              aria-label={`House ${house.house_number}`}
+              aria-label={`House ${house.number}`}
             />
           );
         })}
@@ -148,14 +150,14 @@ export default function NatalChart({ chartData }) {
           const coords = getCoordinates(house.degrees, INNER_RADIUS);
           return (
             <text
-              key={`house-num-${house.house_number}`}
+              key={`house-num-${house.number}`}
               x={coords.x}
               y={coords.y}
               className="house-number"
               textAnchor="middle"
               dominantBaseline="middle"
             >
-              {house.house_number}
+              {house.number}
             </text>
           );
         })}
@@ -167,7 +169,7 @@ export default function NatalChart({ chartData }) {
             className="planet"
             tabIndex="0"
             role="button"
-            aria-label={`${planet.name} at ${planet.degrees.toFixed(1)}° in ${planet.sign}`}
+            aria-label={`${planet.name} at ${planet.degree}°${planet.minute}' in ${planet.sign}`}
           >
             <circle
               cx={planet.x}
@@ -202,7 +204,7 @@ export default function NatalChart({ chartData }) {
                 <span className="planet-symbol" aria-hidden="true">
                   {PLANET_SYMBOLS[planet.name]}
                 </span>
-                <strong>{planet.name}</strong>: {planet.sign} {planet.degrees.toFixed(1)}°
+                <strong>{planet.name}</strong>: {planet.sign} {planet.degree}°{planet.minute}'
               </li>
             ))}
           </ul>
@@ -214,7 +216,7 @@ export default function NatalChart({ chartData }) {
             <ul>
               {aspects.map((aspect, i) => (
                 <li key={`aspect-${i}`}>
-                  <strong>{aspect.planet1}</strong> {aspect.aspect_type}{' '}
+                  <strong>{aspect.planet1}</strong> {aspect.type}{' '}
                   <strong>{aspect.planet2}</strong>
                   <br />
                   <small>Orb: {aspect.orb.toFixed(2)}°</small>
@@ -234,19 +236,31 @@ NatalChart.propTypes = {
       PropTypes.shape({
         name: PropTypes.string.isRequired,
         sign: PropTypes.string.isRequired,
-        degrees: PropTypes.number.isRequired,
+        degree: PropTypes.number.isRequired,
+        minute: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+        house: PropTypes.number.isRequired,
       })
     ),
     houses: PropTypes.arrayOf(
       PropTypes.shape({
-        house_number: PropTypes.number.isRequired,
+        number: PropTypes.number.isRequired,
         sign: PropTypes.string.isRequired,
-        degrees: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+      })
+    ),
+    points: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        sign: PropTypes.string.isRequired,
+        degree: PropTypes.number.isRequired,
+        minute: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
       })
     ),
     aspects: PropTypes.arrayOf(
       PropTypes.shape({
-        aspect_type: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
         planet1: PropTypes.string.isRequired,
         planet2: PropTypes.string.isRequired,
         orb: PropTypes.number.isRequired,
