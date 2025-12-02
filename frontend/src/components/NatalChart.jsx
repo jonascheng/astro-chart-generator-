@@ -8,7 +8,7 @@ import './NatalChart.css';
  */
 export default function NatalChart({ chartData }) {
   const { t } = useTranslation();
-  
+
   if (!chartData) {
     return null;
   }

@@ -42,8 +42,8 @@ This phase prepares the development environment by installing new dependencies a
 
 ## Phase 4: Polish & Cross-Cutting Concerns
 
-- [ ] T019 Review the final rendered chart and positions table, making stylistic adjustments in the CSS to ensure it closely matches `example-astro.png`.
-- [ ] T020 Implement error handling in the frontend to gracefully manage API errors or invalid data responses from the backend.
+- [x] T019 Review the final rendered chart and positions table, making stylistic adjustments in the CSS to ensure it closely matches `example-astro.png`.
+- [x] T020 Implement error handling in the frontend to gracefully manage API errors or invalid data responses from the backend.
 
 ## Dependency Graph
 

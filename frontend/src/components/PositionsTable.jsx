@@ -9,7 +9,7 @@ import './PositionsTable.css';
  */
 export default function PositionsTable({ planets, points }) {
   const { t } = useTranslation();
-  
+
   if (!planets && !points) {
     return null;
   }
