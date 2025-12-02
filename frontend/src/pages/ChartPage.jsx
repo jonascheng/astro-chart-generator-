@@ -77,12 +77,18 @@ export default function ChartPage() {
     setIsLoading(true);
 
     try {
+      // Convert time from HH:MM to HH:MM:SS format for backend
+      const dataToSend = {
+        ...formData,
+        time: formData.time ? `${formData.time}:00` : formData.time,
+      };
+
       const response = await fetch('/api/chart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(dataToSend),
       });
 
       if (!response.ok) {
