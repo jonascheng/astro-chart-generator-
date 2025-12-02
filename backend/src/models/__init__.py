@@ -1,17 +1,21 @@
 """Models package for the astro chart generator."""
 
 from .chart import (
+    Aspect,
     BirthInput,
-    HouseCusp,
-    MajorAspect,
+    ChartData,
+    House,
     NatalChart,
-    PlanetPosition,
+    Planet,
+    Point,
 )
 
 __all__ = [
     "BirthInput",
-    "NatalChart",
-    "PlanetPosition",
-    "HouseCusp",
-    "MajorAspect",
+    "Planet",
+    "Point",
+    "House",
+    "Aspect",
+    "ChartData",
+    "NatalChart",  # Legacy alias for backward compatibility
 ]

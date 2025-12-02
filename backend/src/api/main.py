@@ -5,11 +5,12 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.models import (
+    Aspect,
     BirthInput,
-    NatalChart,
-    PlanetPosition,
-    HouseCusp,
-    MajorAspect,
+    ChartData,
+    House,
+    Planet,
+    Point,
 )
 from src.core.calculations import calculate_natal_chart
 
@@ -43,65 +44,174 @@ async def health_check():
     return {"status": "ok"}
 
 
-def _get_mock_natal_chart() -> NatalChart:
+def _get_mock_natal_chart() -> ChartData:
     """Generate a mock natal chart for testing."""
     planets = [
-        PlanetPosition(name="Sun", sign="Aries", degrees=15.75),
-        PlanetPosition(name="Moon", sign="Taurus", degrees=22.3),
-        PlanetPosition(name="Mercury", sign="Aries", degrees=10.5),
-        PlanetPosition(name="Venus", sign="Gemini", degrees=18.2),
-        PlanetPosition(name="Mars", sign="Cancer", degrees=5.8),
-        PlanetPosition(name="Jupiter", sign="Leo", degrees=28.4),
-        PlanetPosition(name="Saturn", sign="Virgo", degrees=12.1),
+        Planet(
+            name="Sun",
+            longitude=15.75,
+            sign="Aries",
+            degree=15,
+            minute=45,
+            house=1,
+        ),
+        Planet(
+            name="Moon",
+            longitude=52.3,
+            sign="Taurus",
+            degree=22,
+            minute=18,
+            house=2,
+        ),
+        Planet(
+            name="Mercury",
+            longitude=10.5,
+            sign="Aries",
+            degree=10,
+            minute=30,
+            house=1,
+        ),
+        Planet(
+            name="Venus",
+            longitude=78.2,
+            sign="Gemini",
+            degree=18,
+            minute=12,
+            house=3,
+        ),
+        Planet(
+            name="Mars",
+            longitude=125.8,
+            sign="Cancer",
+            degree=5,
+            minute=48,
+            house=4,
+        ),
+        Planet(
+            name="Jupiter",
+            longitude=148.4,
+            sign="Leo",
+            degree=28,
+            minute=24,
+            house=5,
+        ),
+        Planet(
+            name="Saturn",
+            longitude=162.1,
+            sign="Virgo",
+            degree=12,
+            minute=6,
+            house=6,
+        ),
+        Planet(
+            name="Uranus",
+            longitude=195.5,
+            sign="Libra",
+            degree=15,
+            minute=30,
+            house=7,
+        ),
+        Planet(
+            name="Neptune",
+            longitude=225.8,
+            sign="Scorpio",
+            degree=15,
+            minute=48,
+            house=8,
+        ),
+        Planet(
+            name="Pluto",
+            longitude=265.3,
+            sign="Sagittarius",
+            degree=25,
+            minute=18,
+            house=9,
+        ),
+    ]
+
+    points = [
+        Point(
+            name="Ascendant",
+            longitude=10.5,
+            sign="Aries",
+            degree=10,
+            minute=30,
+        ),
+        Point(
+            name="Descendant",
+            longitude=190.5,
+            sign="Libra",
+            degree=10,
+            minute=30,
+        ),
+        Point(
+            name="Midheaven",
+            longitude=190.5,
+            sign="Libra",
+            degree=10,
+            minute=30,
+        ),
+        Point(
+            name="Imum Coeli",
+            longitude=10.5,
+            sign="Aries",
+            degree=10,
+            minute=30,
+        ),
     ]
 
     houses = [
-        HouseCusp(house_number=1, sign="Aries", degrees=10.5),
-        HouseCusp(house_number=2, sign="Taurus", degrees=15.2),
-        HouseCusp(house_number=3, sign="Gemini", degrees=20.8),
-        HouseCusp(house_number=4, sign="Cancer", degrees=25.1),
-        HouseCusp(house_number=5, sign="Leo", degrees=27.6),
-        HouseCusp(house_number=6, sign="Virgo", degrees=28.3),
-        HouseCusp(house_number=7, sign="Libra", degrees=10.5),
-        HouseCusp(house_number=8, sign="Scorpio", degrees=15.2),
-        HouseCusp(house_number=9, sign="Sagittarius", degrees=20.8),
-        HouseCusp(house_number=10, sign="Capricorn", degrees=25.1),
-        HouseCusp(house_number=11, sign="Aquarius", degrees=27.6),
-        HouseCusp(house_number=12, sign="Pisces", degrees=28.3),
+        House(number=1, longitude=10.5, sign="Aries"),
+        House(number=2, longitude=45.2, sign="Taurus"),
+        House(number=3, longitude=80.8, sign="Gemini"),
+        House(number=4, longitude=125.1, sign="Cancer"),
+        House(number=5, longitude=157.6, sign="Leo"),
+        House(number=6, longitude=188.3, sign="Virgo"),
+        House(number=7, longitude=190.5, sign="Libra"),
+        House(number=8, longitude=225.2, sign="Scorpio"),
+        House(number=9, longitude=260.8, sign="Sagittarius"),
+        House(number=10, longitude=305.1, sign="Capricorn"),
+        House(number=11, longitude=337.6, sign="Aquarius"),
+        House(number=12, longitude=8.3, sign="Pisces"),
     ]
 
     aspects = [
-        MajorAspect(
-            aspect_type="Conjunction",
+        Aspect(
             planet1="Sun",
             planet2="Mercury",
+            type="Conjunction",
             orb=5.25,
         ),
-        MajorAspect(
-            aspect_type="Sextile",
+        Aspect(
             planet1="Sun",
             planet2="Venus",
+            type="Sextile",
             orb=2.45,
         ),
-        MajorAspect(
-            aspect_type="Square",
+        Aspect(
             planet1="Moon",
             planet2="Mars",
-            orb=16.5,
+            type="Square",
+            orb=3.5,
         ),
-        MajorAspect(
-            aspect_type="Trine",
+        Aspect(
             planet1="Venus",
             planet2="Jupiter",
-            orb=10.2,
+            type="Trine",
+            orb=1.2,
         ),
     ]
 
-    return NatalChart(planets=planets, houses=houses, aspects=aspects)
+    return ChartData(
+        planets=planets,
+        points=points,
+        houses=houses,
+        aspects=aspects,
+    )
 
 
-@app.post("/chart", response_model=NatalChart)
-async def generate_chart(birth_input: BirthInput) -> NatalChart:
+@app.post("/chart", response_model=ChartData)
+async def generate_chart(birth_input: BirthInput) -> ChartData:
     """
     Generate a natal chart based on birth information.
 
