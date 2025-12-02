@@ -28,17 +28,17 @@ This phase prepares the development environment by installing new dependencies a
 - [x] T011 [US1] Implement the D3.js rendering logic in `frontend/src/components/NatalChart.jsx` to draw the main structure of the chart (zodiac ring, house lines) based on the received `ChartData`.
 - [x] T012 [US1] Extend the D3.js logic in `frontend/src/components/NatalChart.jsx` to render the planet glyphs at their correct positions.
 - [x] T013 [US1] Extend the D3.js logic in `frontend/src/components/NatalChart.jsx` to draw the aspect lines between planets.
-- [ ] T014 [US1] Create a new component `frontend/src/components/PositionsTable.jsx` that takes the `planets` and `points` data and renders the positions table.
-- [ ] T015 [US1] Integrate the `PositionsTable.jsx` component into `frontend/src/pages/ChartPage.jsx`.
-- [ ] T016 [US1] Integrate `react-i18next` throughout the new and modified components to ensure all UI text is translated.
+- [x] T014 [US1] Create a new component `frontend/src/components/PositionsTable.jsx` that takes the `planets` and `points` data and renders the positions table.
+- [x] T015 [US1] Integrate the `PositionsTable.jsx` component into `frontend/src/pages/ChartPage.jsx`.
+- [x] T016 [US1] Integrate `react-i18next` throughout the new and modified components to ensure all UI text is translated.
 
 ## Phase 3: User Story 2 - Print the Astrological Chart
 
 **Goal**: A user can print their generated chart.
 **Independent Test**: Click the "Print Chart" button and verify that the browser's print dialog opens with a print-friendly version of the chart.
 
-- [ ] T017 [US2] Add a "Print Chart" button to the `frontend/src/pages/ChartPage.jsx` component.
-- [ ] T018 [US2] Implement the `onClick` handler for the print button to trigger the browser's print functionality. Create print-specific CSS to ensure the chart is formatted correctly for printing.
+- [x] T017 [US2] Add a "Print Chart" button to the `frontend/src/pages/ChartPage.jsx` component.
+- [x] T018 [US2] Implement the `onClick` handler for the print button to trigger the browser's print functionality. Create print-specific CSS to ensure the chart is formatted correctly for printing.
 
 ## Phase 4: Polish & Cross-Cutting Concerns
 
