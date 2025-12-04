@@ -11,6 +11,7 @@ from src.models import (
     Point,
 )
 
+"""十二星座名稱陣列，依照黃道順序排列"""
 # Zodiac signs
 ZODIAC_SIGNS = [
     "Aries",
@@ -27,6 +28,7 @@ ZODIAC_SIGNS = [
     "Pisces",
 ]
 
+"""行星對應 pyswisseph 的編號，方便查詢行星位置"""
 # Planet identifiers for pyswisseph
 PLANETS = {
     "Sun": swe.SUN,
@@ -41,6 +43,7 @@ PLANETS = {
     "Pluto": swe.PLUTO,
 }
 
+"""主要相位及其度數與容許誤差（orb），依 FR-005 規範"""
 # Major aspects with their degrees and orbs (per FR-005)
 MAJOR_ASPECTS = {
     0: ("Conjunction", 8),
@@ -50,6 +53,7 @@ MAJOR_ASPECTS = {
     180: ("Opposition", 8),
 }
 
+"""主要城市的地理座標（緯度、經度），用於出生地查詢"""
 # Geolocation data for major cities (lat, lon)
 CITY_COORDS = {
     ("new york", "usa"): (40.7128, -74.0060),
@@ -65,10 +69,9 @@ CITY_COORDS = {
 
 def _get_city_coordinates(city: str, country: str) -> Tuple[float, float]:
     """
-    Get latitude and longitude for a city.
+    取得指定城市的緯度與經度
 
-    For now, uses a hardcoded lookup. In production, would use
-    geolocation API.
+    目前採用硬編碼查表，正式環境可改用地理 API
     """
     key = (city.lower(), country.lower())
     if key in CITY_COORDS:
@@ -79,17 +82,16 @@ def _get_city_coordinates(city: str, country: str) -> Tuple[float, float]:
 
 
 def _degrees_to_zodiac_sign(degrees: float) -> str:
-    """Convert degrees (0-360) to zodiac sign."""
+    """將度數（0-360）轉換為星座名稱"""
     sign_index = int(degrees // 30)
     return ZODIAC_SIGNS[sign_index % 12]
 
 
 def _degrees_to_sign_components(degrees: float) -> Tuple[str, int, int]:
     """
-    Convert degrees (0-360) to zodiac sign with degree and minute.
+    將度數（0-360）轉換為星座、度、分
 
-    Returns:
-        Tuple of (sign_name, degree_in_sign, minute_in_sign)
+    回傳：(星座名稱, 星座內度數, 星座內分)
     """
     sign_index = int(degrees // 30)
     sign = ZODIAC_SIGNS[sign_index % 12]
@@ -106,14 +108,14 @@ def _degrees_to_sign_components(degrees: float) -> Tuple[str, int, int]:
 
 def _calculate_jd(date_str: str, time_str: str) -> float:
     """
-    Calculate Julian Day number from date and time.
+    根據日期與時間計算儒略日（Julian Day）
 
     Args:
-        date_str: Date in YYYY-MM-DD format
-        time_str: Time in HH:MM:SS format
+        date_str: 日期（YYYY-MM-DD）
+        time_str: 時間（HH:MM:SS）
 
     Returns:
-        Julian Day number
+        儒略日數值
     """
     year, month, day = map(int, date_str.split("-"))
     time_parts = time_str.split(":")
@@ -137,17 +139,17 @@ def get_planet_positions(
     house_cusps: List[float],
 ) -> List[Planet]:
     """
-    Calculate planet positions for a given date, time, and location.
+    計算指定日期、時間、地點的行星位置
 
     Args:
-        date_str: Date in YYYY-MM-DD format
-        time_str: Time in HH:MM:SS format
-        latitude: Latitude of location
-        longitude: Longitude of location
-        house_cusps: List of 12 house cusp longitudes
+        date_str: 日期（YYYY-MM-DD）
+        time_str: 時間（HH:MM:SS）
+        latitude: 緯度
+        longitude: 經度
+        house_cusps: 12宮分界度數列表
 
     Returns:
-        List of Planet objects
+        Planet 物件列表
     """
     jd = _calculate_jd(date_str, time_str)
 
@@ -188,16 +190,16 @@ def get_astrological_points(
     longitude: float,
 ) -> List[Point]:
     """
-    Calculate astrological points (ASC, DSC, MC, IC).
+    計算占星四大點（上升、下降、中天、天底）
 
     Args:
-        date_str: Date in YYYY-MM-DD format
-        time_str: Time in HH:MM:SS format
-        latitude: Latitude of location
-        longitude: Longitude of location
+        date_str: 日期（YYYY-MM-DD）
+        time_str: 時間（HH:MM:SS）
+        latitude: 緯度
+        longitude: 經度
 
     Returns:
-        List of Point objects (Ascendant, Descendant, MC, IC)
+        Point 物件列表（ASC, DSC, MC, IC）
     """
     jd = _calculate_jd(date_str, time_str)
 
@@ -268,16 +270,16 @@ def get_house_cusps(
     longitude: float,
 ) -> List[House]:
     """
-    Calculate house cusps for a given date, time, and location.
+    計算指定日期、時間、地點的十二宮分界
 
     Args:
-        date_str: Date in YYYY-MM-DD format
-        time_str: Time in HH:MM:SS format
-        latitude: Latitude of location
-        longitude: Longitude of location
+        date_str: 日期（YYYY-MM-DD）
+        time_str: 時間（HH:MM:SS）
+        latitude: 緯度
+        longitude: 經度
 
     Returns:
-        List of House objects (12 houses)
+        House 物件列表（12宮）
     """
     jd = _calculate_jd(date_str, time_str)
 
@@ -308,14 +310,14 @@ def _get_house_for_position(
     house_cusps: List[float],
 ) -> int:
     """
-    Determine which house a planet is in based on its longitude.
+    根據行星度數判斷其所屬宮位
 
     Args:
-        planet_lon: Planet longitude (0-360)
-        house_cusps: List of 12 house cusp longitudes
+        planet_lon: 行星度數（0-360）
+        house_cusps: 12宮分界度數列表
 
     Returns:
-        House number (1-12)
+        宮位編號（1-12）
     """
     # Find which house the planet is in by checking angles
     for i in range(12):
@@ -342,14 +344,14 @@ def get_aspects(
     points: List[Point],
 ) -> List[Aspect]:
     """
-    Calculate major aspects between planets and points.
+    計算行星與占星點之間的主要相位
 
     Args:
-        planets: List of Planet objects
-        points: List of Point objects
+        planets: Planet 物件列表
+        points: Point 物件列表
 
     Returns:
-        List of Aspect objects
+        Aspect 物件列表
     """
     aspects = []
 
@@ -398,16 +400,16 @@ def calculate_natal_chart(
     city: str,
 ) -> ChartData:
     """
-    Calculate a complete natal chart for a given birth information.
+    計算完整的出生星盤（本命盤）
 
     Args:
-        date_str: Birth date in YYYY-MM-DD format
-        time_str: Birth time in HH:MM:SS format
-        country: Birth country
-        city: Birth city
+        date_str: 出生日期（YYYY-MM-DD）
+        time_str: 出生時間（HH:MM:SS）
+        country: 出生國家
+        city: 出生城市
 
     Returns:
-        ChartData object with planets, points, houses, and aspects
+        ChartData 物件，包含行星、占星點、宮位、相位
     """
     # Get coordinates for the city
     latitude, longitude = _get_city_coordinates(city, country)
