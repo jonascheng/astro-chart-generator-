@@ -29,6 +29,24 @@ A clear, well-documented RESTful or GraphQL API must exist between the frontend 
 ### V. Testability
 Both the frontend and backend must be independently testable. The frontend will use unit and component tests (e.g., with Vitest/Jest and React Testing Library). The Python backend must have comprehensive unit tests for its calculation engine and API endpoints.
 
+### VI. Containerization
+The entire application, including both frontend and backend, must be containerized using Docker. This ensures consistent environments across development, testing, and production deployments.
+
+### VII. Code Quality and Documentation
+All code must adhere to established style guides (e.g., PEP 8 for Python, Airbnb for JavaScript/React). Comprehensive documentation is required for both the API and the overall architecture to facilitate onboarding and future maintenance.
+
+### VIII. Continuous Integration/Continuous Deployment (CI/CD)
+A CI/CD pipeline must be established to automate testing, building, and deployment processes. This pipeline should include automated tests for both frontend and backend components to ensure code quality and reliability.
+
+### VIIII. Definition of Done
+A feature or task is considered "done" when:
+- It meets all acceptance criteria defined in the specification.
+- It passes all relevant tests (unit, integration, end-to-end).
+- Unit and integration tests are written and passing for new functionality.
+- User experience is validated through basic usability testing.
+- Documentation is updated to reflect any changes or new features.
+- Redundant code is removed, and code quality standards are met.
+
 ## Governance
 
 Compliance with this constitution is mandatory for all development activities. All feature specifications, implementation plans, and code contributions will be evaluated against these principles.
